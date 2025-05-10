@@ -3,11 +3,11 @@ package com.burakandarman.springaidemo.Service.Impl;
 import com.burakandarman.springaidemo.Dto.AudioResponseDto;
 import com.burakandarman.springaidemo.Service.ChatService;
 import com.burakandarman.springaidemo.Service.FileService;
-import org.springframework.ai.audio.transcription.AudioTranscriptionPrompt;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.image.ImagePrompt;
 import org.springframework.ai.openai.*;
 import org.springframework.ai.openai.audio.speech.SpeechPrompt;
+import org.springframework.ai.openai.audio.transcription.AudioTranscriptionPrompt;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
@@ -76,8 +76,7 @@ public class ChatServiceImpl implements ChatService {
         File promptAudioFile = fileService.createFileFromBytes(promptAudio.getBytes(), promptAudioFileName);
 
         String promptString = openAiAudioTranscriptionModel
-                .call(new AudioTranscriptionPrompt(new FileSystemResource(promptAudioFile))
-                )
+                .call(new AudioTranscriptionPrompt(new FileSystemResource(promptAudioFile)))
                 .getResult()
                 .getOutput();
 
